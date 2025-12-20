@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Personal website showcasing my work, skills, and experience">
-    <title>Your Name - Personal Website</title>
+    <meta name="description" content="Nikhila Kuntla - Data Science Student at Boston University | TechOps Engineer | Cloud Infrastructure & Data Analytics">
+    <title>Nikhila Kuntla - Data Scientist & TechOps Engineer</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -12,12 +12,14 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
-            <div class="nav-brand">Your Name</div>
+            <div class="nav-brand">Nikhila Kuntla</div>
             <ul class="nav-menu">
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#work" class="nav-link">Work</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#education" class="nav-link">Education</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <div class="hamburger">
@@ -32,11 +34,11 @@
     <section id="home" class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1 class="hero-title">Hi, I'm <span class="highlight">Your Name</span></h1>
-                <p class="hero-subtitle">Your Professional Title / Role</p>
-                <p class="hero-description">A brief tagline about what you do and what makes you unique</p>
+                <h1 class="hero-title">Hi, I'm <span class="highlight">Nikhila Kuntla</span></h1>
+                <p class="hero-subtitle">Data Science Student | TechOps Engineer</p>
+                <p class="hero-description">Passionate about data analytics, cloud infrastructure, and building scalable systems. Currently pursuing Master's in Data Science at Boston University.</p>
                 <div class="hero-buttons">
-                    <a href="#work" class="btn btn-primary">View My Work</a>
+                    <a href="#projects" class="btn btn-primary">View My Projects</a>
                     <a href="#contact" class="btn btn-secondary">Get In Touch</a>
                 </div>
             </div>
@@ -50,18 +52,19 @@
             <div class="about-content">
                 <div class="about-text">
                     <p>
-                        Write a compelling paragraph about yourself here. Include your background, 
-                        what you're passionate about, and what drives you in your career.
+                        I'm a Data Science graduate student at Boston University with a strong foundation in cloud infrastructure 
+                        and data analytics. With experience as a TechOps Engineer at ICICI Bank, I've led critical migrations 
+                        of applications serving 30M+ users to Kubernetes-based platforms, enhancing scalability and reliability.
                     </p>
                     <p>
-                        Add more details about your education, experience, or personal interests. 
-                        This section helps visitors understand who you are beyond just your work.
+                        My passion lies in transforming complex data into actionable insights and building robust, scalable systems. 
+                        I enjoy working on end-to-end data pipelines, machine learning models, and cloud infrastructure projects. 
+                        When I'm not coding, you'll find me reading, practicing yoga, playing badminton, or painting.
                     </p>
-                    <div class="about-links">
-                        <a href="resume.pdf" class="btn btn-outline" target="_blank">
-                            <i class="fas fa-download"></i> Download Resume
-                        </a>
-                    </div>
+                    <p>
+                        <strong>Location:</strong> Boston, MA, USA<br>
+                        <strong>Languages:</strong> English (Advanced), Telugu (Native), Hindi (Advanced), German (Basic)
+                    </p>
                 </div>
                 <div class="about-image">
                     <div class="image-placeholder">
@@ -73,33 +76,48 @@
         </div>
     </section>
 
-    <!-- Work/Projects Section -->
-    <section id="work" class="work">
+    <!-- Experience Section -->
+    <section id="experience" class="work">
         <div class="container">
-            <h2 class="section-title">My Work</h2>
-            <p class="section-subtitle">Projects and experiences that showcase my skills</p>
+            <h2 class="section-title">Work Experience</h2>
+            <p class="section-subtitle">Professional experience and key achievements</p>
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-image">
                         <div class="image-placeholder">
-                            <i class="fas fa-laptop-code"></i>
+                            <i class="fas fa-building"></i>
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3>Project Title 1</h3>
-                        <p>Brief description of your project. What it does, technologies used, and key achievements.</p>
+                        <h3>TechOps Engineer | ICICI Bank</h3>
+                        <p class="project-date">June 2023 - June 2025</p>
+                        <p><strong>Project iMobile Fanta: Migration to Red Hat OpenShift</strong></p>
+                        <p>Led migration of iMobile Pay app (30M+ users) to Red Hat OpenShift, enhancing scalability, reliability, and high availability across data centers. Authored YAML for 200+ microservices, configured logging/monitoring, and implemented CDC for real-time analytics.</p>
                         <div class="project-tags">
-                            <span class="tag">Technology 1</span>
-                            <span class="tag">Technology 2</span>
-                            <span class="tag">Technology 3</span>
+                            <span class="tag">Kubernetes</span>
+                            <span class="tag">OpenShift</span>
+                            <span class="tag">Docker</span>
+                            <span class="tag">CI/CD</span>
+                            <span class="tag">Microservices</span>
                         </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link" target="_blank">
-                                <i class="fab fa-github"></i> GitHub
-                            </a>
-                            <a href="#" class="project-link" target="_blank">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-server"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Project Pockets: Infrastructure Setup</h3>
+                        <p class="project-date">November 2024 - June 2025</p>
+                        <p>Responsible for end-to-end infrastructure setup in a new data centre and configuration for mobile application deployment, including network components and security layers.</p>
+                        <div class="project-tags">
+                            <span class="tag">Infrastructure</span>
+                            <span class="tag">Network Management</span>
+                            <span class="tag">Security</span>
+                            <span class="tag">Cloud Administration</span>
                         </div>
                     </div>
                 </div>
@@ -111,19 +129,42 @@
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3>Project Title 2</h3>
-                        <p>Brief description of your project. What it does, technologies used, and key achievements.</p>
+                        <h3>Project iMobile 2.5: Platform Migration</h3>
+                        <p class="project-date">June 2023 - March 2024</p>
+                        <p>Migrated app from MobileFirst to non-MFP solution, adding frontend security layers for efficient traffic routing. Provisioned infrastructure based on utilization data and optimized middleware, load balancing, and SSL.</p>
                         <div class="project-tags">
-                            <span class="tag">Technology 1</span>
-                            <span class="tag">Technology 2</span>
+                            <span class="tag">Migration</span>
+                            <span class="tag">Security</span>
+                            <span class="tag">Load Balancing</span>
+                            <span class="tag">Middleware</span>
                         </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link" target="_blank">
-                                <i class="fab fa-github"></i> GitHub
-                            </a>
-                            <a href="#" class="project-link" target="_blank">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="work" style="background-color: var(--bg-light);">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <p class="section-subtitle">Data science and infrastructure projects</p>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>911 Call Data Patterns Aggregator</h3>
+                        <p class="project-date">September 2025 - Present</p>
+                        <p>Developing an end-to-end data pipeline for aggregating and harmonizing 911 call data from top U.S. cities to uncover patterns in police service calls, correlations with crime, fatal violence, and social determinants of health.</p>
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Data Pipeline</span>
+                            <span class="tag">Data Analysis</span>
+                            <span class="tag">ETL</span>
                         </div>
                     </div>
                 </div>
@@ -131,21 +172,38 @@
                 <div class="project-card">
                     <div class="project-image">
                         <div class="image-placeholder">
-                            <i class="fas fa-chart-line"></i>
+                            <i class="fas fa-futbol"></i>
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3>Project Title 3</h3>
-                        <p>Brief description of your project. What it does, technologies used, and key achievements.</p>
+                        <h3>LALIGA Shot Data Analysis & Goal Prediction</h3>
+                        <p class="project-date">October 2025</p>
+                        <p>Analyzed LALIGA shots (2015-25 seasons) to predict goals. Engineered features from coordinates, performed EDA revealing rebounds as 3x conversion boosters. Clustered players via K-Means/PCA and built predictive models (Logistic Regression, Random Forest, XGBoost) to forecast goal outcomes.</p>
                         <div class="project-tags">
-                            <span class="tag">Technology 1</span>
-                            <span class="tag">Technology 2</span>
-                            <span class="tag">Technology 3</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">Machine Learning</span>
+                            <span class="tag">Scikit-Learn</span>
+                            <span class="tag">XGBoost</span>
+                            <span class="tag">Data Analysis</span>
                         </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link" target="_blank">
-                                <i class="fab fa-github"></i> GitHub
-                            </a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Self-Hosted Cloud Infrastructure</h3>
+                        <p class="project-date">June 2025 - Present</p>
+                        <p>Designed and managed a personal cloud environment, including self-hosting Immich (private photo backup solution) and Readeck (web application to save, organize, and archive web content), using Docker and Docker Compose for containerization.</p>
+                        <div class="project-tags">
+                            <span class="tag">Docker</span>
+                            <span class="tag">Docker Compose</span>
+                            <span class="tag">Cloud Infrastructure</span>
+                            <span class="tag">Self-Hosting</span>
                         </div>
                     </div>
                 </div>
@@ -163,34 +221,94 @@
                     <h3><i class="fas fa-code"></i> Programming Languages</h3>
                     <div class="skill-items">
                         <span class="skill-item">Python</span>
+                        <span class="skill-item">SQL</span>
+                        <span class="skill-item">R</span>
+                        <span class="skill-item">C</span>
+                        <span class="skill-item">HTML</span>
+                        <span class="skill-item">CSS</span>
                         <span class="skill-item">JavaScript</span>
-                        <span class="skill-item">Java</span>
-                        <span class="skill-item">C++</span>
                     </div>
                 </div>
                 <div class="skill-category">
-                    <h3><i class="fas fa-tools"></i> Frameworks & Tools</h3>
+                    <h3><i class="fas fa-brain"></i> Data Science & ML</h3>
                     <div class="skill-items">
-                        <span class="skill-item">React</span>
-                        <span class="skill-item">Node.js</span>
-                        <span class="skill-item">Git</span>
-                        <span class="skill-item">Docker</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-database"></i> Databases</h3>
-                    <div class="skill-items">
-                        <span class="skill-item">MySQL</span>
-                        <span class="skill-item">MongoDB</span>
-                        <span class="skill-item">PostgreSQL</span>
+                        <span class="skill-item">Scikit-Learn</span>
+                        <span class="skill-item">Data Analysis</span>
+                        <span class="skill-item">Statistics</span>
+                        <span class="skill-item">Probability</span>
+                        <span class="skill-item">Machine Learning</span>
                     </div>
                 </div>
                 <div class="skill-category">
                     <h3><i class="fas fa-cloud"></i> Cloud & DevOps</h3>
                     <div class="skill-items">
-                        <span class="skill-item">AWS</span>
-                        <span class="skill-item">Azure</span>
+                        <span class="skill-item">Kubernetes</span>
+                        <span class="skill-item">Docker</span>
+                        <span class="skill-item">OpenShift</span>
                         <span class="skill-item">CI/CD</span>
+                        <span class="skill-item">GitHub Actions</span>
+                        <span class="skill-item">Cloud Administration</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-tools"></i> Tools & Technologies</h3>
+                    <div class="skill-items">
+                        <span class="skill-item">IBM WebSphere</span>
+                        <span class="skill-item">Network Management</span>
+                        <span class="skill-item">Dynatrace</span>
+                        <span class="skill-item">Shell Scripting</span>
+                        <span class="skill-item">Microsoft Excel</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="work" style="background-color: var(--bg-light);">
+        <div class="container">
+            <h2 class="section-title">Education</h2>
+            <p class="section-subtitle">Academic background and achievements</p>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Master in Data Science</h3>
+                        <p class="project-date">September 2025 - Present</p>
+                        <p><strong>Boston University</strong><br>Boston, MA, USA</p>
+                        <p>Currently pursuing Master's degree in Data Science, focusing on data mining, predictive modeling, machine learning, and statistical analysis.</p>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-university"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>B.Tech in Electrical and Electronics Engineering</h3>
+                        <p class="project-date">August 2019 - May 2023</p>
+                        <p><strong>National Institute of Technology</strong><br>Nagpur, India</p>
+                        <p>CGPA: 7.63/10</p>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-school"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>High School - MPC</h3>
+                        <p class="project-date">June 2017 - May 2019</p>
+                        <p><strong>Narayana Junior College</strong><br>Hyderabad, India</p>
+                        <p>Percentage: 98.4%</p>
                     </div>
                 </div>
             </div>
@@ -208,21 +326,28 @@
                         <i class="fas fa-envelope"></i>
                         <div>
                             <h3>Email</h3>
-                            <a href="mailto:your.email@example.com">your.email@example.com</a>
+                            <a href="mailto:nikhilak@bu.edu">nikhilak@bu.edu</a>
                         </div>
                     </div>
                     <div class="contact-item">
                         <i class="fab fa-linkedin"></i>
                         <div>
                             <h3>LinkedIn</h3>
-                            <a href="https://linkedin.com/in/yourprofile" target="_blank">linkedin.com/in/yourprofile</a>
+                            <a href="https://www.linkedin.com/in/nikhilakuntla" target="_blank">linkedin.com/in/nikhilakuntla</a>
                         </div>
                     </div>
                     <div class="contact-item">
                         <i class="fab fa-github"></i>
                         <div>
                             <h3>GitHub</h3>
-                            <a href="https://github.com/yourusername" target="_blank">github.com/yourusername</a>
+                            <a href="https://github.com/NikhilaReddyKuntla" target="_blank">github.com/NikhilaReddyKuntla</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Location</h3>
+                            <p>Boston, MA, USA</p>
                         </div>
                     </div>
                 </div>
@@ -233,15 +358,15 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Your Name. All rights reserved.</p>
+            <p>&copy; 2025 Nikhila Kuntla. All rights reserved.</p>
             <div class="social-links">
-                <a href="https://github.com/yourusername" target="_blank" aria-label="GitHub">
+                <a href="https://github.com/NikhilaReddyKuntla" target="_blank" aria-label="GitHub">
                     <i class="fab fa-github"></i>
                 </a>
-                <a href="https://linkedin.com/in/yourprofile" target="_blank" aria-label="LinkedIn">
+                <a href="https://www.linkedin.com/in/nikhilakuntla" target="_blank" aria-label="LinkedIn">
                     <i class="fab fa-linkedin"></i>
                 </a>
-                <a href="mailto:your.email@example.com" aria-label="Email">
+                <a href="mailto:nikhilak@bu.edu" aria-label="Email">
                     <i class="fas fa-envelope"></i>
                 </a>
             </div>

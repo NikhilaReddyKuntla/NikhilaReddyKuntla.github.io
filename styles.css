@@ -320,6 +320,14 @@ section {
     color: var(--text-primary);
 }
 
+.project-date {
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+    display: block;
+}
+
 .project-content p {
     color: var(--text-secondary);
     margin-bottom: 1rem;
