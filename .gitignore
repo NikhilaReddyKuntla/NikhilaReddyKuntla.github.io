@@ -1,0 +1,17 @@
+# Langflow Configuration (optional - uncomment if you want to keep API keys private)
+# langflow-config.js
+
+# Images (if you want to keep them local only)
+# images/*.jpg
+# images/*.png
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
