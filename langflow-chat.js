@@ -1,10 +1,24 @@
 // Langflow Chat Integration
-// Configuration - Update this with your Langflow API endpoint
+// Configuration - Update this with your Langflow details
 const LANGFLOW_CONFIG = {
-    // Replace with your Langflow API endpoint
-    // Example: 'https://your-langflow-instance.com/api/v1/run/{flow_id}'
-    // Or if using Langflow Cloud: 'https://api.langflow.com/v1/run/{flow_id}'
-    apiEndpoint: '', // Add your Langflow API endpoint here
+    // Method 1: Using Langflow Embed Widget (Recommended)
+    // Set useEmbedWidget to true and provide hostUrl and flowId
+    useEmbedWidget: false, // Set to true to use embed widget instead of API
+    
+    // Langflow Host URL (required for both methods)
+    // Examples:
+    // - Langflow Cloud: 'https://cloud.langflow.com'
+    // - Self-hosted: 'https://your-domain.com'
+    hostUrl: '', // Add your Langflow host URL here
+    
+    // Flow ID (required for both methods)
+    // Found in your flow's Share/Embed settings or URL
+    flowId: '', // Add your Flow ID here
+    
+    // Method 2: Using Direct API (if useEmbedWidget is false)
+    // API endpoint will be constructed as: {hostUrl}/api/v1/run/{flowId}
+    // Or you can provide a custom endpoint:
+    apiEndpoint: '', // Leave empty to auto-construct, or provide custom endpoint
     
     // Optional: Add API key if required
     apiKey: '', // Add your API key if Langflow requires authentication
@@ -17,6 +31,23 @@ const LANGFLOW_CONFIG = {
 let isProcessing = false;
 let chatHistory = [];
 
+// Function to construct API endpoint (accessible globally)
+function getApiEndpoint() {
+    // If custom endpoint provided, use it
+    if (LANGFLOW_CONFIG.apiEndpoint) {
+        return LANGFLOW_CONFIG.apiEndpoint;
+    }
+    
+    // Otherwise, construct from hostUrl and flowId
+    if (LANGFLOW_CONFIG.hostUrl && LANGFLOW_CONFIG.flowId) {
+        // Remove trailing slash from hostUrl if present
+        const hostUrl = LANGFLOW_CONFIG.hostUrl.replace(/\/$/, '');
+        return `${hostUrl}/api/v1/run/${LANGFLOW_CONFIG.flowId}`;
+    }
+    
+    return null;
+}
+
 // Initialize chat
 document.addEventListener('DOMContentLoaded', function() {
     const chatInput = document.getElementById('chatInput');
@@ -25,6 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const suggestionChips = document.querySelectorAll('.suggestion-chip');
 
     // Load configuration from config file if available
+    // Load it synchronously by adding script tag before this script
     loadConfig();
 
     // Send message on button click
@@ -63,10 +95,18 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Check if API endpoint is configured
-        if (!LANGFLOW_CONFIG.apiEndpoint) {
-            showErrorMessage('Langflow API endpoint not configured. Please check the setup instructions.');
-            return;
+        // Check if configuration is valid
+        // Wait a moment for config to load if needed
+        let endpoint = getApiEndpoint();
+        if (!endpoint) {
+            // Try once more after a short delay in case config is still loading
+            await new Promise(resolve => setTimeout(resolve, 100));
+            endpoint = getApiEndpoint();
+            if (!endpoint) {
+                showErrorMessage('Langflow not configured. Please provide hostUrl and flowId in langflow-config.js');
+                console.error('Langflow Config:', LANGFLOW_CONFIG);
+                return;
+            }
         }
 
         // Clear input
@@ -111,6 +151,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const timeoutId = setTimeout(() => controller.abort(), LANGFLOW_CONFIG.timeout);
 
         try {
+            // Get API endpoint
+            const endpoint = getApiEndpoint();
+            if (!endpoint) {
+                throw new Error('Langflow API endpoint not configured. Please provide hostUrl and flowId, or a custom apiEndpoint.');
+            }
+
             // Prepare request body based on Langflow API format
             const requestBody = {
                 input_value: message,
@@ -133,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 headers['Authorization'] = `Bearer ${LANGFLOW_CONFIG.apiKey}`;
             }
 
-            const response = await fetch(LANGFLOW_CONFIG.apiEndpoint, {
+            const response = await fetch(endpoint, {
                 method: 'POST',
                 headers: headers,
                 body: JSON.stringify(requestBody),
@@ -265,17 +311,23 @@ document.addEventListener('DOMContentLoaded', function() {
         addMessage(message, 'bot');
         scrollToBottom();
     }
+
 });
 
-// Function to load configuration from external file
-function loadConfig() {
-    // Try to load from langflow-config.js if it exists
-    // This allows users to keep their API key separate
-    const script = document.createElement('script');
-    script.src = 'langflow-config.js';
-    script.onerror = function() {
-        console.log('langflow-config.js not found. Using default configuration.');
-    };
-    document.head.appendChild(script);
+// Function to construct API endpoint (accessible globally)
+function getApiEndpoint() {
+    // If custom endpoint provided, use it
+    if (LANGFLOW_CONFIG.apiEndpoint) {
+        return LANGFLOW_CONFIG.apiEndpoint;
+    }
+    
+    // Otherwise, construct from hostUrl and flowId
+    if (LANGFLOW_CONFIG.hostUrl && LANGFLOW_CONFIG.flowId) {
+        // Remove trailing slash from hostUrl if present
+        const hostUrl = LANGFLOW_CONFIG.hostUrl.replace(/\/$/, '');
+        return `${hostUrl}/api/v1/run/${LANGFLOW_CONFIG.flowId}`;
+    }
+    
+    return null;
 }
 
