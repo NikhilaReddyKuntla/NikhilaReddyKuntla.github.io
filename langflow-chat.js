@@ -64,9 +64,8 @@ document.addEventListener('DOMContentLoaded', function() {
         sendButton.disabled = false;
     }
 
-    // Load configuration from config file if available
-    // Load it synchronously by adding script tag before this script
-    loadConfig();
+    // Configuration is loaded via script tag in HTML (langflow-config.js loads before this script)
+    // No need to load it again here
 
     // Send message on button click
     sendButton.addEventListener('click', sendMessage);
