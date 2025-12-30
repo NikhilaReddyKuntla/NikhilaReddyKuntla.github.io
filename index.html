@@ -545,9 +545,10 @@
     </footer>
 
     <script src="script.js"></script>
-    <!-- Load Langflow config before chat script -->
-    <script src="langflow-config.js"></script>
+    <!-- Load Langflow chat script first to define LANGFLOW_CONFIG -->
     <script src="langflow-chat.js"></script>
+    <!-- Then load config to update the values -->
+    <script src="langflow-config.js"></script>
 </body>
 </html>
 

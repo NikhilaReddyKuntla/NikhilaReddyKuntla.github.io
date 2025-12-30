@@ -133,12 +133,22 @@ document.addEventListener('DOMContentLoaded', function() {
         // Wait a moment for config to load if needed
         let endpoint = getApiEndpoint();
         if (!endpoint) {
-            // Try once more after a short delay in case config is still loading
-            await new Promise(resolve => setTimeout(resolve, 100));
-            endpoint = getApiEndpoint();
+            // Try multiple times with increasing delays in case config is still loading
+            for (let i = 0; i < 5; i++) {
+                await new Promise(resolve => setTimeout(resolve, 100 * (i + 1)));
+                endpoint = getApiEndpoint();
+                if (endpoint) break;
+            }
+            
             if (!endpoint) {
+                const configInfo = {
+                    hostUrl: LANGFLOW_CONFIG.hostUrl || 'NOT SET',
+                    flowId: LANGFLOW_CONFIG.flowId || 'NOT SET',
+                    apiEndpoint: LANGFLOW_CONFIG.apiEndpoint || 'NOT SET'
+                };
                 showErrorMessage('Langflow not configured. Please provide hostUrl and flowId in langflow-config.js');
-                console.error('Langflow Config:', LANGFLOW_CONFIG);
+                console.error('Langflow Config Status:', configInfo);
+                console.error('Full Config Object:', LANGFLOW_CONFIG);
                 chatInput.focus();
                 return;
             }
