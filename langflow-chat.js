@@ -276,6 +276,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (error.name === 'AbortError') {
                 throw new Error('Request timeout. Please try again.');
             }
+            
+            // Provide more helpful error messages
+            if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+                throw new Error('Network error: Cannot connect to Langflow server. This is likely a CORS (Cross-Origin) issue. Your Langflow server needs to allow requests from https://nikhilareddykuntla.github.io. See CORS_FIX_GUIDE.md for solutions.');
+            }
+            
             throw error;
         }
     }
