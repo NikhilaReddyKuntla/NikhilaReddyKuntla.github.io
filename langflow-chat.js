@@ -55,14 +55,30 @@ document.addEventListener('DOMContentLoaded', function() {
     const chatMessages = document.getElementById('chatMessages');
     const suggestionChips = document.querySelectorAll('.suggestion-chip');
 
+    // Check if elements exist
+    if (!chatInput || !sendButton || !chatMessages) {
+        console.error('Chat elements not found. Check HTML structure.');
+        return;
+    }
+
     // Ensure input is enabled on initialization
-    if (chatInput) {
-        chatInput.disabled = false;
-        chatInput.removeAttribute('readonly');
-    }
-    if (sendButton) {
-        sendButton.disabled = false;
-    }
+    chatInput.disabled = false;
+    chatInput.removeAttribute('readonly');
+    chatInput.removeAttribute('disabled');
+    sendButton.disabled = false;
+    
+    // Set input as editable
+    chatInput.style.pointerEvents = 'auto';
+    chatInput.style.userSelect = 'text';
+    
+    // Focus the input after a short delay
+    setTimeout(() => {
+        try {
+            chatInput.focus();
+        } catch (e) {
+            console.log('Could not focus input:', e);
+        }
+    }, 100);
 
     // Configuration is loaded via script tag in HTML (langflow-config.js loads before this script)
     // No need to load it again here
