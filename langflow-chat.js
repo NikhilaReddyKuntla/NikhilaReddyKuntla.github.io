@@ -55,6 +55,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const chatMessages = document.getElementById('chatMessages');
     const suggestionChips = document.querySelectorAll('.suggestion-chip');
 
+    // Ensure input is enabled on initialization
+    if (chatInput) {
+        chatInput.disabled = false;
+        chatInput.removeAttribute('readonly');
+    }
+    if (sendButton) {
+        sendButton.disabled = false;
+    }
+
     // Load configuration from config file if available
     // Load it synchronously by adding script tag before this script
     loadConfig();
@@ -116,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
         isProcessing = true;
 
         // Add user message to chat
-        addMessage(message, 'user');
+        addMessage(messageToSend, 'user');
         scrollToBottom();
 
         // Show typing indicator
@@ -124,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         try {
             // Call Langflow API
-            const response = await callLangflowAPI(message);
+            const response = await callLangflowAPI(messageToSend);
             
             // Remove typing indicator
             removeTypingIndicator(typingId);
