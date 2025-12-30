@@ -136,7 +136,9 @@ document.addEventListener('DOMContentLoaded', function() {
         } catch (error) {
             console.error('Error calling Langflow API:', error);
             removeTypingIndicator(typingId);
-            showErrorMessage('Sorry, I encountered an error. Please try again later.');
+            const errorMsg = error.message || 'Sorry, I encountered an error. Please try again later.';
+            showErrorMessage(errorMsg);
+            console.error('Full error details:', error);
         } finally {
             chatInput.disabled = false;
             sendButton.disabled = false;
@@ -157,6 +159,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error('Langflow API endpoint not configured. Please provide hostUrl and flowId, or a custom apiEndpoint.');
             }
 
+            console.log('Calling Langflow API:', endpoint);
+            console.log('Configuration:', LANGFLOW_CONFIG);
+
             // Prepare request body based on Langflow API format
             const requestBody = {
                 input_value: message,
@@ -170,6 +175,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 requestBody.chat_history = chatHistory;
             }
 
+            console.log('Request body:', requestBody);
+
             const headers = {
                 'Content-Type': 'application/json'
             };
@@ -178,6 +185,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if (LANGFLOW_CONFIG.apiKey) {
                 headers['Authorization'] = `Bearer ${LANGFLOW_CONFIG.apiKey}`;
             }
+
+            console.log('Sending request to:', endpoint);
 
             const response = await fetch(endpoint, {
                 method: 'POST',
@@ -188,18 +197,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
             clearTimeout(timeoutId);
 
+            console.log('Response status:', response.status, response.statusText);
+
             if (!response.ok) {
-                throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+                const errorText = await response.text();
+                console.error('API Error Response:', errorText);
+                throw new Error(`API request failed: ${response.status} ${response.statusText}. ${errorText}`);
             }
 
             const data = await response.json();
+            console.log('API Response data:', data);
+            
+            // Extract response text from Langflow response
+            const extractedResponse = extractResponse(data);
+            console.log('Extracted response:', extractedResponse);
+
+            if (!extractedResponse || extractedResponse.trim() === '') {
+                console.warn('Empty response extracted. Full data:', data);
+                throw new Error('Received empty response from Langflow. Please check your flow configuration.');
+            }
             
             // Update chat history
             chatHistory.push({ role: 'user', content: message });
-            chatHistory.push({ role: 'assistant', content: extractResponse(data) });
+            chatHistory.push({ role: 'assistant', content: extractedResponse });
 
-            // Extract response text from Langflow response
-            return extractResponse(data);
+            return extractedResponse;
 
         } catch (error) {
             clearTimeout(timeoutId);
@@ -215,33 +237,89 @@ document.addEventListener('DOMContentLoaded', function() {
         // Langflow API response format may vary
         // Adjust this based on your specific Langflow flow response structure
         
+        console.log('Extracting response from:', data);
+        
+        // Try different response formats
+        // Format 1: Nested outputs structure
         if (data.outputs && data.outputs.length > 0) {
-            // If response has outputs array
             const output = data.outputs[0];
             if (output.outputs && output.outputs.length > 0) {
                 const result = output.outputs[0];
-                if (result.results && result.results.message) {
-                    return result.results.message.content || result.results.message;
+                // Check for message object
+                if (result.results) {
+                    if (typeof result.results === 'string') {
+                        return result.results;
+                    }
+                    if (result.results.message) {
+                        if (typeof result.results.message === 'string') {
+                            return result.results.message;
+                        }
+                        if (result.results.message.content) {
+                            return result.results.message.content;
+                        }
+                    }
+                    if (result.results.text) {
+                        return result.results.text;
+                    }
+                    // Try to stringify if it's an object
+                    if (typeof result.results === 'object') {
+                        return JSON.stringify(result.results);
+                    }
                 }
-                return result.results || result;
+                // Direct result
+                if (result.results) {
+                    return typeof result.results === 'string' ? result.results : JSON.stringify(result.results);
+                }
             }
-            return output.results || output;
+            // Direct output results
+            if (output.results) {
+                return typeof output.results === 'string' ? output.results : JSON.stringify(output.results);
+            }
         }
         
+        // Format 2: Direct results
         if (data.results) {
-            return data.results;
+            if (typeof data.results === 'string') {
+                return data.results;
+            }
+            if (data.results.message) {
+                return typeof data.results.message === 'string' ? data.results.message : data.results.message.content || JSON.stringify(data.results.message);
+            }
+            if (data.results.text) {
+                return data.results.text;
+            }
+            return typeof data.results === 'object' ? JSON.stringify(data.results) : data.results;
         }
         
+        // Format 3: Direct message
         if (data.message) {
-            return data.message;
+            if (typeof data.message === 'string') {
+                return data.message;
+            }
+            if (data.message.content) {
+                return data.message.content;
+            }
+            return JSON.stringify(data.message);
         }
         
+        // Format 4: Direct text
         if (data.text) {
             return data.text;
         }
         
-        // Fallback: return stringified data
-        return JSON.stringify(data);
+        // Format 5: Check for answer field
+        if (data.answer) {
+            return typeof data.answer === 'string' ? data.answer : JSON.stringify(data.answer);
+        }
+        
+        // Format 6: Check for output field
+        if (data.output) {
+            return typeof data.output === 'string' ? data.output : JSON.stringify(data.output);
+        }
+        
+        // Fallback: return stringified data with a note
+        console.warn('Could not extract response in expected format. Returning stringified data.');
+        return 'Response received: ' + JSON.stringify(data, null, 2);
     }
 
     // Function to add message to chat
