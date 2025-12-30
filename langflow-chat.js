@@ -98,9 +98,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to send message
     async function sendMessage() {
+        // Ensure input is enabled before checking
+        if (chatInput.disabled) {
+            chatInput.disabled = false;
+        }
+        
         const message = chatInput.value.trim();
         
-        if (!message || isProcessing) {
+        if (!message) {
+            chatInput.focus();
+            return;
+        }
+        
+        if (isProcessing) {
             return;
         }
 
@@ -114,10 +124,14 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!endpoint) {
                 showErrorMessage('Langflow not configured. Please provide hostUrl and flowId in langflow-config.js');
                 console.error('Langflow Config:', LANGFLOW_CONFIG);
+                chatInput.focus();
                 return;
             }
         }
 
+        // Store message before clearing
+        const messageToSend = message;
+        
         // Clear input
         chatInput.value = '';
         chatInput.disabled = true;
