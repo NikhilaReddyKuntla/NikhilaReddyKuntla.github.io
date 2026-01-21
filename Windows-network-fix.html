@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix Network Path Not Found - Windows 11 Master Guide</title>
+    <style>
+        :root {
+            --primary-color: #0078d4; /* Windows Blue */
+            --bg-color: #f3f3f3;
+            --container-bg: #ffffff;
+            --text-color: #333333;
+            --code-bg: #2d2d2d;
+            --code-text: #f8f8f2;
+            --accent-bg: #e5f1fb;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--container-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        header {
+            border-bottom: 2px solid var(--bg-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 2.2rem;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-left: 5px solid var(--primary-color);
+            padding-left: 15px;
+            margin-top: 40px;
+        }
+
+        h3 {
+            color: #444;
+            margin-top: 25px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        .step-container {
+            margin-bottom: 20px;
+        }
+
+        ul, ol {
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .warning {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+
+        .note {
+            background-color: var(--accent-bg);
+            border-left: 5px solid var(--primary-color);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        code {
+            font-family: 'Consolas', 'Monaco', monospace;
+            background-color: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #d63384;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+            border: 1px solid #444;
+        }
+
+        .btn-restart {
+            display: inline-block;
+            background-color: #333;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #777;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Connecting Windows 11 to Router Storage</h1>
+        <p><strong>The Master Guide:</strong> Fixing the "Network Path Not Found" (0x80070043) error.</p>
+        <p><em>Why is this needed?</em> Windows 11 disables older file sharing protocols (SMB 1.0) and blocks unauthenticated (Guest) connections by default. Most router-based hard drives rely on these older standards.</p>
+    </header>
+
+    <main>
+        <section class="step-container">
+            <h2>Step 1: Enable Legacy Protocol Support (SMB 1.0)</h2>
+            <p>This allows Windows to communicate with older router drives.</p>
+            <ol>
+                <li>Press the <strong>Start</strong> button and search for <code>Turn Windows features on or off</code>. Open it.</li>
+                <li>Scroll down to find <strong>SMB 1.0/CIFS File Sharing Support</strong>.</li>
+                <li>Click the <strong>+</strong> to expand it.</li>
+                <li>Check <strong>ONLY</strong> the box for <strong>SMB 1.0/CIFS Client</strong>.</li>
+                <li>Leave "Server" and "Automatic Removal" <strong>unchecked</strong>.</li>
+                <li>Click <strong>OK</strong>.</li>
+            </ol>
+            <div class="warning">
+                <span class="btn-restart">Action Required</span> <strong>Restart your computer</strong> after this step.
+            </div>
+        </section>
+
+        <section class="step-container">
+            <h2>Step 2: Enable Insecure Guest Logons</h2>
+            <p>This allows Windows to connect to the router without requiring a complex domain password.</p>
+            
+            <div class="note">Choose <strong>Method A</strong> if you have Windows Pro/Enterprise, or <strong>Method B</strong> if you have Windows Home.</div>
+
+            <h3>Method A: Group Policy (Pro/Enterprise Editions)</h3>
+            <ol>
+                <li>Press <code>Win + R</code>, type <code>gpedit.msc</code>, and press <strong>Enter</strong>.</li>
+                <li>Navigate to: <strong>Computer Configuration > Administrative Templates > Network > Lanman Workstation</strong>.</li>
+                <li>Double-click <strong>Enable insecure guest logons</strong>.</li>
+                <li>Select <strong>Enabled</strong> and click <strong>OK</strong>.</li>
+            </ol>
+
+            <h3>Method B: Registry Editor (Home Edition)</h3>
+            <ol>
+                <li>Press <code>Win + R</code>, type <code>regedit</code>, and press <strong>Enter</strong>.</li>
+                <li>Navigate to the following path:
+                    <pre>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters</pre>
+                </li>
+                <li>Look for a DWORD named <code>AllowInsecureGuestAuth</code>.</li>
+                <li><strong>If missing:</strong> Right-click > New > DWORD (32-bit) Value > Name it <code>AllowInsecureGuestAuth</code>.</li>
+                <li>Double-click it and change the <strong>Value data</strong> to <code>1</code>.</li>
+            </ol>
+            <div class="warning">
+                <span class="btn-restart">Action Required</span> <strong>Restart your computer</strong> after this step.
+            </div>
+        </section>
+
+        <section class="step-container">
+            <h2>Step 3: Identify the "Share Name"</h2>
+            <p>You usually cannot map an IP address directly; you must map the specific folder name found on that IP.</p>
+            <ol>
+                <li>Open <strong>Command Prompt</strong> (cmd.exe).</li>
+                <li>Type the following and press <strong>Enter</strong> (replace the IP with your router's IP):
+                    <pre>net view \\192.168.0.1 /all</pre>
+                </li>
+                <li>Note the <strong>Share name</strong> listed in the results (e.g., <code>volume1</code>, <code>sda1</code>, <code>storage</code>, or <code>share</code>).</li>
+            </ol>
+        </section>
+
+        <section class="step-container">
+            <h2>Step 4: Map the Network Drive</h2>
+            <p>This creates a permanent drive (like Z:) for easy access and "Save As" functionality.</p>
+            <ol>
+                <li>Open <strong>File Explorer</strong> > <strong>This PC</strong>.</li>
+                <li>Click the <strong>"..." menu</strong> (or right-click "This PC") and select <strong>Map network drive</strong>.</li>
+                <li><strong>Drive:</strong> Choose a letter (e.g., Z:).</li>
+                <li><strong>Folder:</strong> Type the full path using the name found in Step 3.
+                    <pre>format:  \\IP_ADDRESS\SHARE_NAME
+example: \\192.168.0.1\volume1</pre>
+                </li>
+                <li>Check <strong>Reconnect at sign-in</strong>.</li>
+                <li>Click <strong>Finish</strong>.</li>
+            </ol>
+        </section>
+
+        <section class="step-container">
+            <h2>Optional Troubleshooting</h2>
+            <p>If a future Windows Update breaks this connection, it may be due to "SMB Signing."</p>
+            <p>Run the following command in <strong>PowerShell (Run as Admin)</strong> to fix it:</p>
+            <pre>Set-SmbClientConfiguration -RequireSecuritySignature $false</pre>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Save this page for future setups.</p>
+    </footer>
+</div>
+
+</body>
+</html>
