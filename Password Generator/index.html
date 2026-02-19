@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A simple, secure password generator." />
+  <title>Password Generator</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="header">
+      <h1>Password Generator</h1>
+      <p class="subtitle">Generate secure passwords locally in your browser.</p>
+    </header>
+
+    <section class="card">
+      <div class="row row-output">
+        <label class="label" for="passwordOutput">Generated password</label>
+        <div class="outputWrap">
+          <input id="passwordOutput" class="output" type="text" readonly value="" aria-label="Generated password" />
+          <button id="copyBtn" class="btn btn-secondary" type="button" title="Copy to clipboard">Copy</button>
+        </div>
+        <p id="copyStatus" class="hint" aria-live="polite"></p>
+      </div>
+
+      <div class="row">
+        <div class="rowTitle">
+          <label class="label" for="length">Length</label>
+          <span class="pill"><span id="lengthValue">16</span></span>
+        </div>
+        <input id="length" type="range" min="8" max="64" value="16" />
+        <div class="rangeLegend">
+          <span>8</span><span>64</span>
+        </div>
+      </div>
+
+      <div class="grid">
+        <label class="check">
+          <input id="lowercase" type="checkbox" checked />
+          <span>Lowercase (a–z)</span>
+        </label>
+        <label class="check">
+          <input id="uppercase" type="checkbox" checked />
+          <span>Uppercase (A–Z)</span>
+        </label>
+        <label class="check">
+          <input id="numbers" type="checkbox" checked />
+          <span>Numbers (0–9)</span>
+        </label>
+        <label class="check">
+          <input id="symbols" type="checkbox" checked />
+          <span>Symbols (!@#…)</span>
+        </label>
+
+        <label class="check">
+          <input id="requireEach" type="checkbox" checked />
+          <span>Require each selected type</span>
+        </label>
+        <label class="check">
+          <input id="noAmbiguous" type="checkbox" />
+          <span>Avoid ambiguous characters (O/0, l/1, etc.)</span>
+        </label>
+      </div>
+
+      <div class="row">
+        <div class="rowTitle">
+          <span class="label">Strength</span>
+          <span id="strengthLabel" class="pill pill-muted">—</span>
+        </div>
+        <div class="meter" role="meter" aria-label="Password strength">
+          <div id="strengthBar" class="bar" style="width: 0%"></div>
+        </div>
+        <p class="hint">Tip: 16+ chars with mixed character types is usually strong.</p>
+      </div>
+
+      <div class="actions">
+        <button id="generateBtn" class="btn btn-primary" type="button">Generate</button>
+      </div>
+
+      <p id="error" class="error" aria-live="polite"></p>
+    </section>
+
+    <footer class="footer">
+      <p>Runs fully offline. No data is sent anywhere.</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+

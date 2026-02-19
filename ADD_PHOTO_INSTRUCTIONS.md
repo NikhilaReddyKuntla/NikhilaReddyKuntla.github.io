@@ -44,3 +44,6 @@ If you need to crop/edit your photo:
 
 After adding the photo, open `index.html` in your browser to see if it displays correctly!
 
+
+
+

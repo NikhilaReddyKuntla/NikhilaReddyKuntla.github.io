@@ -26,3 +26,6 @@ Please add your profile photo here with the filename: `profile-photo.jpg`
 
 If the image is not found, a placeholder will be shown instead.
 
+
+
+
