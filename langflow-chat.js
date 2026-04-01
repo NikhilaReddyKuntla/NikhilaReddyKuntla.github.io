@@ -71,14 +71,8 @@ document.addEventListener('DOMContentLoaded', function() {
     chatInput.style.pointerEvents = 'auto';
     chatInput.style.userSelect = 'text';
     
-    // Focus the input after a short delay
-    setTimeout(() => {
-        try {
-            chatInput.focus();
-        } catch (e) {
-            console.log('Could not focus input:', e);
-        }
-    }, 100);
+    // Do not auto-focus on page load, because it can scroll the page to the chat section.
+    // We keep focus behavior for user-driven actions (send/errors) later in the flow.
 
     // Configuration is loaded via script tag in HTML (langflow-config.js loads before this script)
     // No need to load it again here
